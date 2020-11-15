@@ -50,8 +50,8 @@ def autostart():
 
 
 mod = "mod4"
-# terminal = guess_terminal()
-terminal = "kitty"
+terminal = guess_terminal()
+# terminal = "kitty"
 
 keys = [
     # Switch between windows
@@ -97,7 +97,8 @@ keys = [
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(),
+    Key([mod], "b", lazy.spawn("firefox")),
+    Key([mod], "r", lazy.spawn("rofi -show run"),
         desc="Spawn a command using a prompt widget"),
     Key([mod, "shift"], "r", lazy.run_extension(extension.DmenuRun(
         dmenu_prompt=">",
@@ -113,7 +114,7 @@ keys = [
     
 
 ]
-mygroup = ("", "", "", "", "", "")
+mygroup = ("www", "edt", "fl", "snd", "vd")
 say = 0
 groups = [Group(i) for i in mygroup]
 
@@ -148,7 +149,7 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall(border_focus=colors[2], border_width=3, margin=10),
+    layout.MonadTall(border_focus=colors[2], border_width=1, margin=10),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -158,7 +159,7 @@ layouts = [
     layout.Max(),
     layout.Floating(border_focus=colors[2],
                     border_normal=colors[0],
-                    border_width=3),
+                    border_width=1),
 ]
 
 widget_defaults = dict(
@@ -178,8 +179,8 @@ screens = [
                 widget.Spacer(length=10, width=None,),
 
                 ###GROUPBOX###
-                widget.GroupBox(font="Droid Sans Bold",
-                                fontsize=20,
+                widget.GroupBox(font="Droid Sans",
+                                fontsize=12,
 
                                 foreground=colors[5],
                                 padding=5,
@@ -210,23 +211,16 @@ screens = [
                 widget.Systray(),
 
                 ###SENSOR_WIDGET###
-                widget.TextBox(text="",
-                               font="Open Symbol",
-                               fontsize=12,
-                               foreground=colors[5],
-                               padding=0, ),
-
-                widget.ThermalSensor(foreground=colors[5]),
 
                 ###CLOCK_WIDGET###
 
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p',
-                             font="cantarel bold"),
+                             font="cantarel"),
 
                 ###VOLUME_WIDGET###
 
 
-                widget.TextBox(text="",
+                widget.TextBox(text=" ",
                                font="Open Symbol",
                                fontsize=10,
 
@@ -236,7 +230,7 @@ screens = [
 
                 ###QUICK_EXIT###
 
-                widget.QuickExit(default_text="|  |", countdown_start=1),
+                widget.QuickExit(default_text="| x |", countdown_start=1),
             ],
             24,
             background = [colors[0]],
@@ -289,3 +283,4 @@ focus_on_window_activation = "smart"
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+
