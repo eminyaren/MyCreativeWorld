@@ -34,11 +34,11 @@ import os
 import subprocess
 
 ###COLORS###
-colors = ["#080a05",  # DARK  0
-          "#273813",  # DARK_GREEN      1
-          "#548C14",  # GREEN     2
-          "#666B5E",  # GRAY      3
-          "#AAB89A",  # LIGHT    4
+colors = ["#000000",  # BLUE DARK  0
+          "#0081A7",  # BLUE DARK      1
+          "#00AFB9",  # BLUE LIGHT     2
+          "#E56B6F",  # GRAY      3
+          "#EAAC8B",  # LIGHT    4
           "#ffffff",  # WHITE     5
           ]
 
@@ -149,7 +149,7 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall(border_focus=colors[2], border_width=1, margin=10),
+    layout.MonadTall(border_focus=colors[1], border_width=1, margin=10),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -157,7 +157,7 @@ layouts = [
     # layout.VerticalTile(),
     # layout.Zoomy(),
     layout.Max(),
-    layout.Floating(border_focus=colors[2],
+    layout.Floating(border_focus=colors[1],
                     border_normal=colors[0],
                     border_width=1),
 ]
@@ -181,60 +181,44 @@ screens = [
                 ###GROUPBOX###
                 widget.GroupBox(font="Droid Sans",
                                 fontsize=12,
-
-                                foreground=colors[5],
                                 padding=5,
-
-                                highlight_color=[colors[5], colors[2]],
-                                highlight_method="block",
-                                active=colors[2],
-                                inactive=colors[3],
+                                highlight_method="line",
+                                this_current_screen_border=colors[1],
+                                active=colors[1],
+                                inactive=colors[5],
                                 rounded=False,
-                                block_highlight_text_color=colors[5]),
+                                ),
 
                 ###PROMPT###
 
                 widget.Prompt(),
                 widget.Spacer(length=10, width=None,),
-
-
-
-                widget.CurrentLayout(background=colors[2],
-                                     font="cantarel bold"),
+                widget.CurrentLayoutIcon(scale=0.75),
                 widget.Spacer(length=5, width=None,),
 
                 ###WINDOW_NAME###
-                widget.WindowName(foreground=colors[4]),
-
+                widget.TaskList(highlight_method="block", rounded=False, border=colors[1]),
+                
                 ###SYS_TRAY###
-
-                widget.Systray(),
-
-                ###SENSOR_WIDGET###
-
+                widget.Systray(icon_size=20),
+                ###NETWORK###
+               #widget.Net(interface=enp3s0,
+               #format = '{down} ↓↑ {up}'),
+                #widget.NetGraph(),
                 ###CLOCK_WIDGET###
-
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p',
-                             font="cantarel"),
+                             font="cantarel", foreground=colors[5]),
 
                 ###VOLUME_WIDGET###
-
-
-                widget.TextBox(text=" ",
-                               font="Open Symbol",
-                               fontsize=10,
-
-                               foreground=colors[5],
-                               padding=5, ),
                 widget.Volume(foreground=colors[5]),
 
                 ###QUICK_EXIT###
 
-                widget.QuickExit(default_text="| x |", countdown_start=1),
+                widget.QuickExit(default_text="| x |", countdown_start=1,),
             ],
             24,
             background = [colors[0]],
-            opacity=0.75,
+            opacity=0.95,
         ),
     )
 ]
