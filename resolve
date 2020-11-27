@@ -1,0 +1,2 @@
+#!/bin/bash
+LD_LIBRARY_PATH="/opt/amd1" LIBGL_DRIVERS_PATH="/opt/amd2" dri_driver="amdgpu" /opt/resolve/bin/resolve
