@@ -1,0 +1,40 @@
+#!/bin/bash
+echo "Please select convert type"
+echo "1 for Prores, 2 for Youtube"
+read type
+echo "Source Extention"
+read srcExt
+echo "Enter file location"
+read fileDir
+cd $fileDir
+if [ $type -eq "1" ] ; then
+	destExt="mov"
+	destDir="./mov"
+	echo "Prores options (Proxy=0, lt=1, standart=2, hq=3, Pr4444=4, Pr4444xq=5)"
+	read opts
+	mkdir mov
+	for filename in "$fileDir"/*."$srcExt"; do
+		basePath=${filename%.*}
+		baseName=${basePath##*/}
+		ffmpeg -i "$filename" -c:v prores_ks -profile:v $opts -c:a pcm_s16le "$destDir"/"$baseName"."$destExt"
+	done
+fi
+
+
+if [ $type -eq "2" ] ; then
+	destExt="mp4"
+	destDir="./mp4"
+	mkdir mp4
+	for filename in "$fileDir"/*."$srcExt"; do
+		basePath=${filename%./}
+		baseName=${basePath##*/}
+		ffmpeg -i "$filename" -c:v libx264 -b:v 8192k -b:a 192k "$destDir"/"$baseName"."$destExt"
+	done
+
+
+fi
+
+
+
+
+echo "Conversion from ${srcExt} to ${destExt} complete!"
